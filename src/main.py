@@ -1,5 +1,5 @@
-import test1
-import test2
+import model.Transaction as Transaction
 
-test1.test1()
-test2.test2()
+transaction = Transaction.Transaction()
+flag, _ = transaction.create("BTCUSDT", 100, 50, 500)
+print(flag)

@@ -6,7 +6,6 @@ class BD(object):
     __instance = None
     connection_pool = None
 
-
     @classmethod
     def getPool(self):
         if BD.__instance is None:
@@ -19,6 +18,10 @@ class BD(object):
                         user='xnpiochv',
                         password='root')
         return self.connection_pool
+    
+    @classmethod
+    def getConn(self):
+        return pg_simple.PgSimple(self.getPool(), nt_cursor=False)
         
 
 

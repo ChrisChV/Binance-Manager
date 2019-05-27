@@ -41,7 +41,7 @@ SET default_with_oids = false;
 CREATE TABLE public.binance_order (
     order_id integer NOT NULL,
     transaction_id integer,
-    price numeric(5,5),
+    price numeric(13,8),
     type integer,
     state integer
 );
@@ -240,7 +240,7 @@ COPY public.type (type_id, name) FROM stdin;
 -- Name: binance_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xnpiochv
 --
 
-SELECT pg_catalog.setval('public.binance_order_order_id_seq', 1, false);
+SELECT pg_catalog.setval('public.binance_order_order_id_seq', 1, true);
 
 
 --
@@ -254,7 +254,7 @@ SELECT pg_catalog.setval('public.dates_date_id_seq', 1, false);
 -- Name: transaction_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xnpiochv
 --
 
-SELECT pg_catalog.setval('public.transaction_transaction_id_seq', 1, false);
+SELECT pg_catalog.setval('public.transaction_transaction_id_seq', 3, true);
 
 
 --

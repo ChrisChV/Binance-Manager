@@ -2,11 +2,7 @@ import bd
 import pg_simple
 
 def test1():
-    db = pg_simple.PgSimple(bd.BD.getPool(), nt_cursor=False)
-
-    db = pg_simple.PgSimple(bd.BD.getPool(), nt_cursor=False)
-    db = pg_simple.PgSimple(bd.BD.getPool(), nt_cursor=False)
-    db = pg_simple.PgSimple(bd.BD.getPool(), nt_cursor=False)
+    db = bd.BD.getConn()
 
     boy = db.fetchone('test', fields=["id", "nombre"], where=('id=0', None))
     print(boy['nombre'])
