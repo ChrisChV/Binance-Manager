@@ -1,0 +1,14 @@
+Transaction -> transaction_id, symbol
+Order -> order_id, transaction_id, price, type, state
+Dates -> date_id, order_id, init_date, open_date, done_date
+
+
+
+type -> entry, lose, profit
+state -> init, waiting, open, filled, canceled, disabled
+
+
+create table Order(order_id serial primary key, transaction_id integer references Transaction(transaction_id),
+
+create table Order(order_id serial primary key, transaction_id integer references Transaction(transaction_id), price numeric(5,8), type integer references type(type_id), state integer references state(state_id));
+
