@@ -1,24 +1,52 @@
 from binance.client import Client
-import Binance.Binance_Wrapper as key_funcs
+from binance.enums import *
+import Binance.Binance_Client as BC
+import Binance.Binance_Wrapper as BW
+import model.Order as Order
 
-api_key, secret_key = key_funcs.getKeys()
 
-client = Client(api_key, secret_key)
+order = Order.Order()
+order.binance_id = 14062807
 
-while(True):
+_order = BW.getOrderState("LINKUSDT", order)
+print(_order)
+
+
+#order = Order.Order()
+#order.price = 1.3
+#order.quantity = 46.89
+
+#_order = BW.createOrder("LINKUSDT", SIDE_SELL, order)
+
+#print(_order)
+
+#if _order:
+#    print("AAAAAAA")
+
+
+
+
+#14062807
+
+#balance = BW.getBalance("LINK")
+#print(balance)
+
+
+
+#while(True):
     
 
     #depth = client.get_order_book(symbol='BNBBTC')
     #print (depth)
 
-    prices = client.get_all_tickers()
+#    prices = client.get_all_tickers()
     #print(prices)
 
 
-    for price in prices:
-        if price['symbol'] == "LINKUSDT":
-            print(price)
-            break
+#    for price in prices:
+#        if price['symbol'] == "LINKUSDT":
+#            print(price)
+#            break
 
 
 

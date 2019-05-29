@@ -10,7 +10,7 @@ class Transaction:
         self.symbol = None
         self.orders = None
 
-    def create(self, symbol, entry, lose, profit):
+    def create(self, symbol, entry, lose, profit, quantity):
         if not BW.symbolExists(symbol):
             return False, "Symbol doesn't exist"        
         actualPrice = float(BW.getPrice(symbol))
@@ -27,9 +27,9 @@ class Transaction:
         entryOrder = Order.Order()
         loseOrder = Order.Order()
         profitOrder = Order.Order()
-        entryOrder.create(db, entry, sad._ENTRY_TYPE_, self.id, sad._WAITING_STATE_)
-        loseOrder.create(db, lose, sad._LOSE_TYPE_, self.id, sad._INIT_STATE_)
-        profitOrder.create(db, profit, sad._PROFIT_TYPE_, self.id, sad._INIT_STATE_)
+        entryOrder.create(db, entry, sad._ENTRY_TYPE_, self.id, sad._WAITING_STATE_, quantity)
+        loseOrder.create(db, lose, sad._LOSE_TYPE_, self.id, sad._INIT_STATE_, quantity)
+        profitOrder.create(db, profit, sad._PROFIT_TYPE_, self.id, sad._INIT_STATE_, quantity)
         db.commit()
         self.orders = {sad._ENTRY_TYPE_:entryOrder, sad._LOSE_TYPE_:loseOrder, sad._PROFIT_TYPE_:profitOrder}
         return True, None
@@ -37,7 +37,7 @@ class Transaction:
     def get(self, transaction_id):
         self.id = transaction_id
         db = bd.BD.getConn()
-        transaction = db.fetchone(sad._TRANSACTION_TABLE_NAME_, fields=['symbol'], where=('id=%s', str(self.id)))
+        transaction = db.fetchone(sad._TRANSACTION_TABLE_NAME_, fields=['symbol'], where=('transaction_id=%s', str(self.id)))
         self.symbol = transaction['symbol']
-        orders = db.fetchall(sad._ORDER_TABLE_NAME_, fields=['order_id', 'price', 'type', 'state'], where=("transaction_id=%s", str(self.id)))
+        orders = db.fetchall(sad._ORDER_TABLE_NAME_, fields=['order_id', 'price', 'quantity', 'type', 'state', 'binance_id'], where=("transaction_id=%s", str(self.id)))
         self.orders = Order.listToOrders(orders, self.id)
