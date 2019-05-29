@@ -4,6 +4,8 @@ _BINANCE_MODULE_DIR_NAME_ = "Binance"
 _KEYS_FILE_NAME_ = ".keys"
 _KEYS_FILE_PATH_ = _BINANCE_MODULE_DIR_NAME_ + _DF_ + _KEYS_FILE_NAME_
 
+_CONFIG_FILE_NAME_ = "bm.conf"
+
 _ENTRY_TYPE_ = 0
 _LOSE_TYPE_ = 1
 _PROFIT_TYPE_ = 2
@@ -32,3 +34,9 @@ _BINANCE_ID_COL_NAME_ = "binance_id"
 _DATES_TABLE_NAME_ = "Dates"
 _ORDER_ID_COL_NAME_ = "order_id"
 _DATE_COL_NAME_ = "date"
+
+
+
+_CONFIG_LOGGER_SECTION_ = "Logger"
+_CONFIG_TYPE_OPTION_ = "type"
+_CONFIG_CONSOLE_VALUE_ = "console"
