@@ -3,13 +3,15 @@ from binance.enums import *
 import Binance.Binance_Client as BC
 import Binance.Binance_Wrapper as BW
 import model.Order as Order
+import Logger.bm_logger as bm_logger
 
+bm_logger.sendNotification("TEST")
 
-order = Order.Order()
-order.binance_id = 14062807
+#order = Order.Order()
+#order.binance_id = 14062807
 
-_order = BW.getOrderState("LINKUSDT", order)
-print(_order)
+#_order = BW.getOrderState("LINKUSDT", order)
+#print(_order)
 
 
 #order = Order.Order()
