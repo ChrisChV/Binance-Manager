@@ -4,8 +4,12 @@ import Binance.Binance_Client as BC
 import Binance.Binance_Wrapper as BW
 import model.Order as Order
 import Logger.bm_logger as bm_logger
+import Input.bm_input as bm_input
 
-bm_logger.sendNotification("TEST")
+
+bm_input.server_socket()
+
+#bm_logger.sendNotification("TEST")
 
 #order = Order.Order()
 #order.binance_id = 14062807
