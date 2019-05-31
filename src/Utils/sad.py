@@ -45,3 +45,17 @@ _CONFIG_TELEGRAM_TOKEN_OPTION_ = "token"
 _CONFIG_TELEGRAM_CHATID_OPTION_ = "chatId"
 _CONFIG_INPUT_SECTION_ = "Input"
 _CONFIG_HOST_SECTION_ = "host"
+
+
+_JSON_FUNCTION_ = "function"
+_JSON_OPERATION_TYPE_ = "oper_type"
+_JSON_SYMBOL_ = "symbol"
+_JSON_ENTRY_ = "entry"
+_JSON_LOSE_ = "lose"
+_JSON_PROFIT_ = "profit"
+_JSON_QUANTITY_ = "quantity"
+_JSON_TRANSACTION_ID_ = "tran_id"
+_NEW_OPERATION_TYPE_ = "new"
+_PROGRESS_OPERATION_TYPE_ = "progress"
+
+
