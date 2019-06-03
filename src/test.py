@@ -5,7 +5,13 @@ import Binance.Binance_Wrapper as BW
 import model.Order as Order
 import Logger.bm_logger as bm_logger
 import Input.bm_input as bm_input
+import model.bd as bd
+import Utils.sad as sad
 
+
+db = bd.BD.getConn()
+db.update(sad._ORDER_TABLE_NAME_, {sad._STATE_COL_NAME_: 3}, where=('order_id=%s', [str(3)]))
+db.commit()
 
 #symbol1, symbol2 = BW.splitSymbols()
 #print(symbol1)

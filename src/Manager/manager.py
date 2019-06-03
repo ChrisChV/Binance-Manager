@@ -17,7 +17,7 @@ def function_manager(function, transaction=None, transaction_id=None):
 
 def manager(data):
     data = json.loads(data)
-    fucntion = data[sad._JSON_FUNCTION_]
+    function = data[sad._JSON_FUNCTION_]
     oper_type = data[sad._JSON_OPERATION_TYPE_]
     transaction = None
     transaction_id = None

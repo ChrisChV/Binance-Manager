@@ -15,7 +15,7 @@ class Order:
         self.transaction_id = None
         self.state = None
 
-    def create(self, db, price, quantity ,order_type, transaction_id, state):
+    def create(self, db, price, order_type, transaction_id, state, quantity):
         self.price = price
         self.quantity = quantity
         self.order_type = order_type
@@ -42,7 +42,7 @@ class Order:
         flag = db is None
         if flag:
             db = bd.BD.getConn()
-        db.update(sad._ORDER_TABLE_NAME_, {sad._STATE_COL_NAME_: self.state}, where=('oreder_id=', self.id))
+        db.update(sad._ORDER_TABLE_NAME_, {sad._STATE_COL_NAME_: self.state}, where=('order_id=%s', [str(self.id)]))
         if date:
             self.setNewDate(db=db)
         if flag:
@@ -53,7 +53,7 @@ class Order:
         flag = db is None
         if flag:
             db = bd.BD.getConn()
-        db.update(sad._ORDER_TABLE_NAME_, {sad._BINANCE_ID_COL_NAME_: self.binance_id}, where=('order_id=', self.id))
+        db.update(sad._ORDER_TABLE_NAME_, {sad._BINANCE_ID_COL_NAME_: self.binance_id}, where=('order_id=%s', [str(self.id)]))
         if flag:
             db.commit()
     
