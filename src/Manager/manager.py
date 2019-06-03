@@ -1,5 +1,6 @@
 import Manager.functions.simple as simple
 import model.Transaction as Transaction
+import Logger.bm_logger as bm_logger
 import Utils.sad as sad
 import json
 import threading
@@ -25,10 +26,11 @@ def manager(data):
         flag, error = transaction.create(data[sad._JSON_SYMBOL_], data[sad._JSON_ENTRY_], data[sad._JSON_LOSE_], data[sad._JSON_PROFIT_], data[sad._JSON_QUANTITY_])
         if not flag:
             logging.error(error)
-            return False
+            return False, error
     elif oper_type == sad._PROGRESS_OPERATION_TYPE_:
         transaction_id = data[sad._JSON_TRANSACTION_ID_]
     function_manager(function, transaction=transaction, transaction_id=transaction_id)
+    return True, "Transaction (ID:" + str(transaction.id) + ") has been created successfully"
 
     
     

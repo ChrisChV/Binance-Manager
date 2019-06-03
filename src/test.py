@@ -72,4 +72,3 @@ import Input.bm_input as bm_input
     #print(client.get_symbol_info("BTCUSDT"))
 
     #print(client.get_order_book(symbol='BNBBTC'))
-

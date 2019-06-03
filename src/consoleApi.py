@@ -6,10 +6,10 @@ def initConsole():
     print("Binance Manager")
     print("Choice an operation:")
     print("[1] Create Transaction")
-    optionOper = raw_input("Your Choise: ")
+    optionOper = int(raw_input("Your Choise: "))
     print("Choice a function:")
     print("[1] Simple function")
-    optionFunc = raw_input("Your Choise: ")
+    optionFunc = int(raw_input("Your Choise: "))
     data = {}
     if optionFunc == 1:
         data[sad._JSON_FUNCTION_] = sad._FUNCTION_SIMPLE_
@@ -25,4 +25,9 @@ def initConsole():
         data[sad._JSON_PROFIT_] = profit
         data[sad._JSON_SYMBOL_] = symbol
         data[sad._JSON_QUANTITY_] = quantity
-        bm_input.sedData(data)
+        msg = bm_input.sedData(data)
+        print(msg)
+
+
+
+initConsole()

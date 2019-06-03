@@ -24,7 +24,8 @@ def server_socket():
         data = conn.recv(1024)
         if not data:
             break
-        manager.manager(data)
+        flag, msg = manager.manager(data)
+        conn.sendall(msg)
 
 def sedData(data):
     configFile = open(sad._CONFIG_FILE_NAME_, 'r')
@@ -39,4 +40,6 @@ def sedData(data):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((HOST, PORT))
     s.sendall(json.dumps(data))
+    msg = s.recv(1024)
     s.close()
+    return msg
