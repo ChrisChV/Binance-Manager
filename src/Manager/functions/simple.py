@@ -18,7 +18,7 @@ def simple(transaction_id = None, transaction = None):
         transaction.get(transaction_id)
     
     actual_price = None
-    ##Verificar el estado de la transacción (?)
+    ##Verificar el estado de la transaccion (?)
     actual_state = sad._ENTRY_TYPE_
     while True:
         actual_price = BW.getPrice(transaction.symbol)

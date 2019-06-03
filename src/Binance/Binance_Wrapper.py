@@ -53,3 +53,22 @@ def getOrderState(symbol, order):
     client = BC.BinanceClient.getClient()
     _order = client.get_order(symbol=symbol, orderId=order.binance_id)
     return _order['status']
+
+
+def splitSymbols(symbol):
+    l_symbols = sad._BINANCE_SYM_LIST_
+    temp_symbl = ""
+    for _symbol in l_symbols:
+        flag = True
+        for i in range(-1, -(len(_symbol) + 1), -1):
+            if _symbol[i] != symbol[i]:
+                flag = False
+                break
+        if flag:
+            return symbol[:len(_symbol)], _symbol
+                
+def verifyQuantity(symbol, quantity, price):
+    _symbol1, _symbol2 = splitSymbols(symbol)
+    cost = quantity * price
+    balance = getBalance(_symbol2)
+    return balance >= cost

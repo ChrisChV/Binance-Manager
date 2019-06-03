@@ -20,6 +20,8 @@ class Transaction:
             return False, "The lose price has to be less than entry price"
         if profit <= entry:
             return False, "The profit price has to be grater than entry price"
+        if not BW.verifyQuantity(symbol, quantity, entry):
+            return False, "You don't have balance for this transaction"
         self.symbol = symbol
         db = bd.BD.getConn()
         transaction = db.insert(sad._TRANSACTION_TABLE_NAME_, {sad._SYMBOL_COL_NAME_: self.symbol}, returning='transaction_id')

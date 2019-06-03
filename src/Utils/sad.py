@@ -18,7 +18,7 @@ _CANCELED_STATE_ = 4
 _DISABLED_STATE_ = 5
 
 
-
+_BINANCE_SYM_LIST_ = ["BNB", 'BTC', 'ETH', 'XRP', 'USDT', 'PAX', 'TUSD', 'USDC', 'USDS']
 
 _TRANSACTION_TABLE_NAME_ = "Transaction"
 _SYMBOL_COL_NAME_ = "symbol"
@@ -59,3 +59,4 @@ _NEW_OPERATION_TYPE_ = "new"
 _PROGRESS_OPERATION_TYPE_ = "progress"
 
 
+_FUNCTION_SIMPLE_ = "simple"

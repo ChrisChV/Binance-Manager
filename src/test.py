@@ -7,7 +7,11 @@ import Logger.bm_logger as bm_logger
 import Input.bm_input as bm_input
 
 
-bm_input.server_socket()
+#symbol1, symbol2 = BW.splitSymbols()
+#print(symbol1)
+#print(symbol2)
+
+#bm_input.server_socket()
 
 #bm_logger.sendNotification("TEST")
 
@@ -30,7 +34,8 @@ bm_input.server_socket()
 #    print("AAAAAAA")
 
 
-
+#price = BW.getPrice("LINK/USDT")
+#print(price)
 
 #14062807
 
@@ -56,8 +61,8 @@ bm_input.server_socket()
 
 
 
-    #trades = client.get_recent_trades(symbol='LINKUSDT')
-    #print(trades)
+#trades = client.get_recent_trades(symbol='LINKUSDT')
+#print(trades)
 
     #candles = client.get_klines(symbol='LINKUSDT', interval=Client.KLINE_INTERVAL_1MINUTE)
     #print(candles)

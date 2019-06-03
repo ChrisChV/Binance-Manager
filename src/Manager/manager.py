@@ -3,6 +3,7 @@ import model.Transaction as Transaction
 import Utils.sad as sad
 import json
 import threading
+import logging
 
 def function_manager(function, transaction=None, transaction_id=None):
     if transaction is None and transaction_id is None:
@@ -21,7 +22,10 @@ def manager(data):
     transaction_id = None
     if oper_type == sad._NEW_OPERATION_TYPE_:
         transaction = Transaction.Transaction()
-        transaction.create(data[sad._JSON_SYMBOL_], data[sad._JSON_ENTRY_], data[sad._JSON_LOSE_], data[sad._JSON_PROFIT_], data[sad._JSON_QUANTITY_])
+        flag, error = transaction.create(data[sad._JSON_SYMBOL_], data[sad._JSON_ENTRY_], data[sad._JSON_LOSE_], data[sad._JSON_PROFIT_], data[sad._JSON_QUANTITY_])
+        if not flag:
+            logging.error(error)
+            return False
     elif oper_type == sad._PROGRESS_OPERATION_TYPE_:
         transaction_id = data[sad._JSON_TRANSACTION_ID_]
     function_manager(function, transaction=transaction, transaction_id=transaction_id)
