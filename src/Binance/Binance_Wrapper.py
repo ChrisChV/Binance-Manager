@@ -1,10 +1,13 @@
+from requests.exceptions import Timeout
 from binance.client import Client
 from binance.enums import *
 from binance.exceptions import BinanceAPIException
 import Utils.sad as sad
 import Binance.Binance_Client as BC
 import logging
+import math
 
+DIFFERENCE_THRESHOLD = 0.15
 
 def symbolExists(symbol):
     client = BC.BinanceClient.getClient()
@@ -13,12 +16,17 @@ def symbolExists(symbol):
     return False
 
 def getPrice(symbol):
-    client = BC.BinanceClient.getClient()
-    prices = client.get_all_tickers()
-    for price in prices:
-        if price['symbol'] == symbol:
-            return price["price"]
-    return None
+    while True:
+        try:
+            client = BC.BinanceClient.getClient()    
+            prices = client.get_all_tickers()
+            for price in prices:
+                if price['symbol'] == symbol:
+                    return price["price"]
+            return None
+        except Timeout: 
+            logging.info("Timeout Error")
+            pass
 
 def createOrder(symbol, side, order):
     client = BC.BinanceClient.getClient()
@@ -72,3 +80,9 @@ def verifyQuantity(symbol, quantity, price):
     cost = quantity * price
     balance = getBalance(_symbol2)
     return balance >= cost
+
+def percentDifference(priceA, priceB):
+    return math.abs(priceA - priceB) / ((priceA + priceB) / 2.0) * 100
+
+def verifyDistance(priceA, priceB):
+    return percentDifference(priceA, priceB) <= DIFFERENCE_THRESHOLD
