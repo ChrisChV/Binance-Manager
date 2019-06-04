@@ -35,12 +35,12 @@ def createOrder(symbol, side, order):
     try:
         _order = client.create_order(symbol=symbol, side=side, type=ORDER_TYPE_LIMIT, timeInForce=TIME_IN_FORCE_GTC, quantity=order.quantity, price=order.price)
         order.newOpenOrder(_order['orderId'])
+        message = "Transaction " + str(order.transaction_id) + "\n"
+        message += getOrderType(order) +  " Order has been opened. Price: " + str(order.price) + "\n"
+        bm_logger.sendNotification(message)
     except BinanceAPIException as e:
         logging.error(e)
         pass
-    message = "Transaction " + str(order.transaction_id) + "\n"
-    message += getOrderType(order) +  " Order has been opened. Price: " + str(order.price) + "\n"
-    bm_logger.sendNotification(message)
     return _order
 
 def createTestOrder(symbol, side, order):
@@ -66,8 +66,12 @@ def getBalance(symbol):
 
 def getOrderState(symbol, order):
     client = BC.BinanceClient.getClient()
-    _order = client.get_order(symbol=symbol, orderId=order.binance_id)
-    return _order['status']
+    try:
+        _order = client.get_order(symbol=symbol, orderId=order.binance_id)
+        return _order['status']
+    except BinanceAPIException as e:
+        logging.error(e)
+        return None
 
 
 def splitSymbols(symbol):

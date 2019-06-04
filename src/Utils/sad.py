@@ -57,6 +57,7 @@ _JSON_QUANTITY_ = "quantity"
 _JSON_TRANSACTION_ID_ = "tran_id"
 _NEW_OPERATION_TYPE_ = "new"
 _PROGRESS_OPERATION_TYPE_ = "progress"
+_CANCEL_OPERATION_TYPE_ = "cancel"
 
 
 _FUNCTION_SIMPLE_ = "simple"
