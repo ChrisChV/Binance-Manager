@@ -25,6 +25,7 @@ def simple(transaction_id = None, transaction = None):
         actual_price = BW.getPrice(transaction.symbol)
         if actual_state == sad._ENTRY_TYPE_:
             BW.createOrder(transaction.symbol, SIDE_BUY, transaction.orders[sad._ENTRY_TYPE_])
+            bm_logger.sendNotification(message)
             actual_state = _WAITING_ENTRY_
         elif actual_state == _WAITING_ENTRY_:
             if BW.getOrderState(transaction.symbol, transaction.orders[sad._ENTRY_TYPE_]) == ORDER_STATUS_FILLED:

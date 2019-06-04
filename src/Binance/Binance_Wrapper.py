@@ -2,6 +2,7 @@ from requests.exceptions import Timeout
 from binance.client import Client
 from binance.enums import *
 from binance.exceptions import BinanceAPIException
+import Logger.bm_logger as bm_logger
 import Utils.sad as sad
 import Binance.Binance_Client as BC
 import logging
@@ -37,6 +38,9 @@ def createOrder(symbol, side, order):
     except BinanceAPIException as e:
         logging.error(e)
         pass
+    message = "Transaction " + str(order.transaction_id) + "\n"
+    message += getOrderType(order) +  " Order has been opened. Price: " + str(order.price) + "\n"
+    bm_logger.sendNotification(message)
     return _order
 
 def createTestOrder(symbol, side, order):
@@ -48,6 +52,9 @@ def cancelOrder(symbol, order):
     client = BC.BinanceClient.getClient()
     result = client.cancel_order(symbol=symbol, orderId=order.binance_id)
     order.changeState(sad._DISABLED_STATE_)
+    message = "Transaction " + str(order.transaction_id) + "\n"
+    message += getOrderType(order) +  " Order has been canceled. Price: " + str(order.price) + "\n"
+    bm_logger.sendNotification(message)
     return result
 
 def getBalance(symbol):
@@ -80,6 +87,15 @@ def verifyQuantity(symbol, quantity, price):
     cost = quantity * price
     balance = getBalance(_symbol2)
     return balance >= cost
+
+def getOrderType(order):
+    if order.order_type == sad._ENTRY_TYPE_:
+        return "Entry"
+    elif order.order_type == sad._LOSE_TYPE_:
+        return "Lose"
+    elif order.order_type == sad._PROFIT_TYPE_:
+        return "Profit"
+    return ""
 
 def percentDifference(priceA, priceB):
     return math.abs(priceA - priceB) / ((priceA + priceB) / 2.0) * 100
