@@ -1,3 +1,6 @@
-import Input.bm_input as bm_input
+import server.bm_server as bm_server
 
-bm_input.server_socket()
+bm_server.initServer()
+
+
+

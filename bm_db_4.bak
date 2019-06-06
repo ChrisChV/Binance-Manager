@@ -110,6 +110,40 @@ ALTER SEQUENCE public.dates_date_id_seq OWNED BY public.dates.date_id;
 
 
 --
+-- Name: function; Type: TABLE; Schema: public; Owner: xnpiochv
+--
+
+CREATE TABLE public.function (
+    function_id integer NOT NULL,
+    name character varying(128)
+);
+
+
+ALTER TABLE public.function OWNER TO xnpiochv;
+
+--
+-- Name: function_function_id_seq; Type: SEQUENCE; Schema: public; Owner: xnpiochv
+--
+
+CREATE SEQUENCE public.function_function_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.function_function_id_seq OWNER TO xnpiochv;
+
+--
+-- Name: function_function_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xnpiochv
+--
+
+ALTER SEQUENCE public.function_function_id_seq OWNED BY public.function.function_id;
+
+
+--
 -- Name: state; Type: TABLE; Schema: public; Owner: xnpiochv
 --
 
@@ -128,7 +162,8 @@ ALTER TABLE public.state OWNER TO xnpiochv;
 CREATE TABLE public.transaction (
     transaction_id integer NOT NULL,
     symbol character varying(16),
-    state integer
+    state integer,
+    function integer
 );
 
 
@@ -183,12 +218,42 @@ ALTER TABLE ONLY public.dates ALTER COLUMN date_id SET DEFAULT nextval('public.d
 
 
 --
+-- Name: function function_id; Type: DEFAULT; Schema: public; Owner: xnpiochv
+--
+
+ALTER TABLE ONLY public.function ALTER COLUMN function_id SET DEFAULT nextval('public.function_function_id_seq'::regclass);
+
+
+--
 -- Name: transaction transaction_id; Type: DEFAULT; Schema: public; Owner: xnpiochv
 --
 
 ALTER TABLE ONLY public.transaction ALTER COLUMN transaction_id SET DEFAULT nextval('public.transaction_transaction_id_seq'::regclass);
 
 
+--
+-- Data for Name: binance_order; Type: TABLE DATA; Schema: public; Owner: xnpiochv
+--
+
+COPY public.binance_order (order_id, transaction_id, price, type, state, binance_id, quantity) FROM stdin;
+\.
+
+
+--
+-- Data for Name: dates; Type: TABLE DATA; Schema: public; Owner: xnpiochv
+--
+
+COPY public.dates (date_id, order_id, date, state) FROM stdin;
+\.
+
+
+--
+-- Data for Name: function; Type: TABLE DATA; Schema: public; Owner: xnpiochv
+--
+
+COPY public.function (function_id, name) FROM stdin;
+0	simple
+\.
 
 
 --
@@ -205,7 +270,12 @@ COPY public.state (state_id, name) FROM stdin;
 \.
 
 
+--
+-- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: xnpiochv
+--
 
+COPY public.transaction (transaction_id, symbol, state, function) FROM stdin;
+\.
 
 
 --
@@ -234,6 +304,13 @@ SELECT pg_catalog.setval('public.dates_date_id_seq', 94, true);
 
 
 --
+-- Name: function_function_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xnpiochv
+--
+
+SELECT pg_catalog.setval('public.function_function_id_seq', 1, false);
+
+
+--
 -- Name: transaction_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xnpiochv
 --
 
@@ -254,6 +331,14 @@ ALTER TABLE ONLY public.binance_order
 
 ALTER TABLE ONLY public.dates
     ADD CONSTRAINT dates_pkey PRIMARY KEY (date_id);
+
+
+--
+-- Name: function function_pkey; Type: CONSTRAINT; Schema: public; Owner: xnpiochv
+--
+
+ALTER TABLE ONLY public.function
+    ADD CONSTRAINT function_pkey PRIMARY KEY (function_id);
 
 
 --
@@ -318,6 +403,14 @@ ALTER TABLE ONLY public.dates
 
 ALTER TABLE ONLY public.dates
     ADD CONSTRAINT dates_state_fkey FOREIGN KEY (state) REFERENCES public.state(state_id);
+
+
+--
+-- Name: transaction transaction_function_fkey; Type: FK CONSTRAINT; Schema: public; Owner: xnpiochv
+--
+
+ALTER TABLE ONLY public.transaction
+    ADD CONSTRAINT transaction_function_fkey FOREIGN KEY (function) REFERENCES public.function(function_id);
 
 
 --

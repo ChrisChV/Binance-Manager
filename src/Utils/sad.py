@@ -17,6 +17,7 @@ _FILLED_STATE_ = 3
 _CANCELED_STATE_ = 4
 _DISABLED_STATE_ = 5
 
+_FUNCTION_SIMPLE_ = 0
 
 _BINANCE_SYM_LIST_ = ["BNB", 'BTC', 'ETH', 'XRP', 'USDT', 'PAX', 'TUSD', 'USDC', 'USDS']
 
@@ -35,6 +36,7 @@ _DATES_TABLE_NAME_ = "Dates"
 _ORDER_ID_COL_NAME_ = "order_id"
 _DATE_COL_NAME_ = "date"
 
+_FUNCTION_COL_NAME_ = "function"
 
 
 _CONFIG_LOGGER_SECTION_ = "Logger"
@@ -60,4 +62,3 @@ _PROGRESS_OPERATION_TYPE_ = "progress"
 _CANCEL_OPERATION_TYPE_ = "cancel"
 
 
-_FUNCTION_SIMPLE_ = "simple"

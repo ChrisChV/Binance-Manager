@@ -20,7 +20,6 @@ def simple(stop_event, transaction_id = None, transaction = None):
         transaction.get(transaction_id)
     actual_price = BW.getPrice(transaction.symbol)
     actual_state = verifyTransaction(transaction, actual_price)
-    print(actual_state)
     while True:
         if stop_event.is_set():
             stop(transaction)
@@ -28,6 +27,7 @@ def simple(stop_event, transaction_id = None, transaction = None):
         actual_price = BW.getPrice(transaction.symbol)
         if actual_state == sad._ENTRY_TYPE_:
             BW.createOrder(transaction.symbol, SIDE_BUY, transaction.orders[sad._ENTRY_TYPE_])
+            transaction.changeState(sad._OPEN_STATE_)
             actual_state = _WAITING_ENTRY_
         elif actual_state == _WAITING_ENTRY_:
             if BW.getOrderState(transaction.symbol, transaction.orders[sad._ENTRY_TYPE_]) == ORDER_STATUS_FILLED:
@@ -65,6 +65,7 @@ def simple(stop_event, transaction_id = None, transaction = None):
             if actual_price <= transaction.orders[sad._ENTRY_TYPE_].price:
                 BW.cancelOrder(transaction.symbol, transaction.orders[sad._PROFIT_TYPE_])
                 actual_state = _WAITING_LOSE_DIFFERENCE
+    transaction.changeState(sad._FILLED_STATE_)
     message = "Transaction " + str(transaction.id) + " (" + transaction.symbol + ") has finished\n"
     message += "Quantity: " + str(transaction.orders[sad._ENTRY_TYPE_].quantity) + "\n"
     message += "Entry Order Price: " + str(transaction.orders[sad._ENTRY_TYPE_].price) + "\n"
@@ -80,6 +81,7 @@ def simple(stop_event, transaction_id = None, transaction = None):
     bm_logger.sendNotification(message)
 
 
+
 def stop(transaccion):
     message = "Transaction " + str(transaccion.id) + " has been canceled\n"
     bm_logger.sendNotification(message)
@@ -93,6 +95,7 @@ def stop(transaccion):
             BW.cancelOrder(transaccion.symbol, transaccion.orders[sad._LOSE_TYPE_])
         if BW.getOrderState(transaccion.symbol, transaccion.orders[sad._PROFIT_TYPE_]) == ORDER_STATUS_NEW:
             BW.cancelOrder(transaccion.symbol, transaccion.orders[sad._PROFIT_TYPE_])
+    transaccion.changeState(sad._CANCELED_STATE_)
 
 
 def verifyTransaction(transaction, actual_price):
@@ -115,3 +118,4 @@ def verifyTransaction(transaction, actual_price):
         else:
             BW.createOrder(transaction.symbol, SIDE_SELL, transaction.orders[sad._PROFIT_TYPE_])
             return  _WAITING_PROFIT_
+    
