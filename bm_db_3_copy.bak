@@ -35,7 +35,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: binance_order; Type: TABLE; Schema: public; Owner: mxfrikjo
+-- Name: binance_order; Type: TABLE; Schema: public; Owner: test
 --
 
 CREATE TABLE public.binance_order (
@@ -49,10 +49,10 @@ CREATE TABLE public.binance_order (
 );
 
 
-ALTER TABLE public.binance_order OWNER TO mxfrikjo;
+ALTER TABLE public.binance_order OWNER TO test;
 
 --
--- Name: binance_order_order_id_seq; Type: SEQUENCE; Schema: public; Owner: mxfrikjo
+-- Name: binance_order_order_id_seq; Type: SEQUENCE; Schema: public; Owner: test
 --
 
 CREATE SEQUENCE public.binance_order_order_id_seq
@@ -64,17 +64,17 @@ CREATE SEQUENCE public.binance_order_order_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.binance_order_order_id_seq OWNER TO mxfrikjo;
+ALTER TABLE public.binance_order_order_id_seq OWNER TO test;
 
 --
--- Name: binance_order_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxfrikjo
+-- Name: binance_order_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: test
 --
 
 ALTER SEQUENCE public.binance_order_order_id_seq OWNED BY public.binance_order.order_id;
 
 
 --
--- Name: dates; Type: TABLE; Schema: public; Owner: mxfrikjo
+-- Name: dates; Type: TABLE; Schema: public; Owner: test
 --
 
 CREATE TABLE public.dates (
@@ -85,10 +85,10 @@ CREATE TABLE public.dates (
 );
 
 
-ALTER TABLE public.dates OWNER TO mxfrikjo;
+ALTER TABLE public.dates OWNER TO test;
 
 --
--- Name: dates_date_id_seq; Type: SEQUENCE; Schema: public; Owner: mxfrikjo
+-- Name: dates_date_id_seq; Type: SEQUENCE; Schema: public; Owner: test
 --
 
 CREATE SEQUENCE public.dates_date_id_seq
@@ -100,17 +100,17 @@ CREATE SEQUENCE public.dates_date_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.dates_date_id_seq OWNER TO mxfrikjo;
+ALTER TABLE public.dates_date_id_seq OWNER TO test;
 
 --
--- Name: dates_date_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxfrikjo
+-- Name: dates_date_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: test
 --
 
 ALTER SEQUENCE public.dates_date_id_seq OWNED BY public.dates.date_id;
 
 
 --
--- Name: state; Type: TABLE; Schema: public; Owner: mxfrikjo
+-- Name: state; Type: TABLE; Schema: public; Owner: test
 --
 
 CREATE TABLE public.state (
@@ -119,10 +119,10 @@ CREATE TABLE public.state (
 );
 
 
-ALTER TABLE public.state OWNER TO mxfrikjo;
+ALTER TABLE public.state OWNER TO test;
 
 --
--- Name: transaction; Type: TABLE; Schema: public; Owner: mxfrikjo
+-- Name: transaction; Type: TABLE; Schema: public; Owner: test
 --
 
 CREATE TABLE public.transaction (
@@ -131,10 +131,10 @@ CREATE TABLE public.transaction (
 );
 
 
-ALTER TABLE public.transaction OWNER TO mxfrikjo;
+ALTER TABLE public.transaction OWNER TO test;
 
 --
--- Name: transaction_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: mxfrikjo
+-- Name: transaction_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: test
 --
 
 CREATE SEQUENCE public.transaction_transaction_id_seq
@@ -146,17 +146,17 @@ CREATE SEQUENCE public.transaction_transaction_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.transaction_transaction_id_seq OWNER TO mxfrikjo;
+ALTER TABLE public.transaction_transaction_id_seq OWNER TO test;
 
 --
--- Name: transaction_transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: mxfrikjo
+-- Name: transaction_transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: test
 --
 
 ALTER SEQUENCE public.transaction_transaction_id_seq OWNED BY public.transaction.transaction_id;
 
 
 --
--- Name: type; Type: TABLE; Schema: public; Owner: mxfrikjo
+-- Name: type; Type: TABLE; Schema: public; Owner: test
 --
 
 CREATE TABLE public.type (
@@ -165,31 +165,31 @@ CREATE TABLE public.type (
 );
 
 
-ALTER TABLE public.type OWNER TO mxfrikjo;
+ALTER TABLE public.type OWNER TO test;
 
 --
--- Name: binance_order order_id; Type: DEFAULT; Schema: public; Owner: mxfrikjo
+-- Name: binance_order order_id; Type: DEFAULT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.binance_order ALTER COLUMN order_id SET DEFAULT nextval('public.binance_order_order_id_seq'::regclass);
 
 
 --
--- Name: dates date_id; Type: DEFAULT; Schema: public; Owner: mxfrikjo
+-- Name: dates date_id; Type: DEFAULT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.dates ALTER COLUMN date_id SET DEFAULT nextval('public.dates_date_id_seq'::regclass);
 
 
 --
--- Name: transaction transaction_id; Type: DEFAULT; Schema: public; Owner: mxfrikjo
+-- Name: transaction transaction_id; Type: DEFAULT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.transaction ALTER COLUMN transaction_id SET DEFAULT nextval('public.transaction_transaction_id_seq'::regclass);
 
 
 --
--- Data for Name: binance_order; Type: TABLE DATA; Schema: public; Owner: mxfrikjo
+-- Data for Name: binance_order; Type: TABLE DATA; Schema: public; Owner: test
 --
 
 COPY public.binance_order (order_id, transaction_id, price, type, state, binance_id, quantity) FROM stdin;
@@ -197,7 +197,7 @@ COPY public.binance_order (order_id, transaction_id, price, type, state, binance
 
 
 --
--- Data for Name: dates; Type: TABLE DATA; Schema: public; Owner: mxfrikjo
+-- Data for Name: dates; Type: TABLE DATA; Schema: public; Owner: test
 --
 
 COPY public.dates (date_id, order_id, date, state) FROM stdin;
@@ -205,7 +205,7 @@ COPY public.dates (date_id, order_id, date, state) FROM stdin;
 
 
 --
--- Data for Name: state; Type: TABLE DATA; Schema: public; Owner: mxfrikjo
+-- Data for Name: state; Type: TABLE DATA; Schema: public; Owner: test
 --
 
 COPY public.state (state_id, name) FROM stdin;
@@ -219,7 +219,7 @@ COPY public.state (state_id, name) FROM stdin;
 
 
 --
--- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: mxfrikjo
+-- Data for Name: transaction; Type: TABLE DATA; Schema: public; Owner: test
 --
 
 COPY public.transaction (transaction_id, symbol) FROM stdin;
@@ -227,7 +227,7 @@ COPY public.transaction (transaction_id, symbol) FROM stdin;
 
 
 --
--- Data for Name: type; Type: TABLE DATA; Schema: public; Owner: mxfrikjo
+-- Data for Name: type; Type: TABLE DATA; Schema: public; Owner: test
 --
 
 COPY public.type (type_id, name) FROM stdin;
@@ -238,28 +238,28 @@ COPY public.type (type_id, name) FROM stdin;
 
 
 --
--- Name: binance_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxfrikjo
+-- Name: binance_order_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: test
 --
 
 SELECT pg_catalog.setval('public.binance_order_order_id_seq', 1, true);
 
 
 --
--- Name: dates_date_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxfrikjo
+-- Name: dates_date_id_seq; Type: SEQUENCE SET; Schema: public; Owner: test
 --
 
 SELECT pg_catalog.setval('public.dates_date_id_seq', 1, false);
 
 
 --
--- Name: transaction_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: mxfrikjo
+-- Name: transaction_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: test
 --
 
 SELECT pg_catalog.setval('public.transaction_transaction_id_seq', 3, true);
 
 
 --
--- Name: binance_order binance_order_pkey; Type: CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: binance_order binance_order_pkey; Type: CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.binance_order
@@ -267,7 +267,7 @@ ALTER TABLE ONLY public.binance_order
 
 
 --
--- Name: dates dates_pkey; Type: CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: dates dates_pkey; Type: CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.dates
@@ -275,7 +275,7 @@ ALTER TABLE ONLY public.dates
 
 
 --
--- Name: state state_pkey; Type: CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: state state_pkey; Type: CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.state
@@ -283,7 +283,7 @@ ALTER TABLE ONLY public.state
 
 
 --
--- Name: transaction transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: transaction transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.transaction
@@ -291,7 +291,7 @@ ALTER TABLE ONLY public.transaction
 
 
 --
--- Name: type type_pkey; Type: CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: type type_pkey; Type: CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.type
@@ -299,7 +299,7 @@ ALTER TABLE ONLY public.type
 
 
 --
--- Name: binance_order binance_order_state_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: binance_order binance_order_state_fkey; Type: FK CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.binance_order
@@ -307,7 +307,7 @@ ALTER TABLE ONLY public.binance_order
 
 
 --
--- Name: binance_order binance_order_transaction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: binance_order binance_order_transaction_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.binance_order
@@ -315,7 +315,7 @@ ALTER TABLE ONLY public.binance_order
 
 
 --
--- Name: binance_order binance_order_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: binance_order binance_order_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.binance_order
@@ -323,7 +323,7 @@ ALTER TABLE ONLY public.binance_order
 
 
 --
--- Name: dates dates_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: dates dates_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.dates
@@ -331,7 +331,7 @@ ALTER TABLE ONLY public.dates
 
 
 --
--- Name: dates dates_state_fkey; Type: FK CONSTRAINT; Schema: public; Owner: mxfrikjo
+-- Name: dates dates_state_fkey; Type: FK CONSTRAINT; Schema: public; Owner: test
 --
 
 ALTER TABLE ONLY public.dates

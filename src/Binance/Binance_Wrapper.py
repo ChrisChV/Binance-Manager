@@ -6,7 +6,6 @@ import Logger.bm_logger as bm_logger
 import Utils.sad as sad
 import Binance.Binance_Client as BC
 import logging
-import math
 
 DIFFERENCE_THRESHOLD = 0.15
 
@@ -23,7 +22,7 @@ def getPrice(symbol):
             prices = client.get_all_tickers()
             for price in prices:
                 if price['symbol'] == symbol:
-                    return price["price"]
+                    return float(price["price"])
             return None
         except Timeout: 
             logging.info("Timeout Error")
@@ -102,7 +101,7 @@ def getOrderType(order):
     return ""
 
 def percentDifference(priceA, priceB):
-    return math.abs(priceA - priceB) / ((priceA + priceB) / 2.0) * 100
+    return abs(priceA - priceB) / ((priceA + priceB) / 2.0) * 100
 
 def verifyDistance(priceA, priceB):
     return percentDifference(priceA, priceB) <= DIFFERENCE_THRESHOLD
