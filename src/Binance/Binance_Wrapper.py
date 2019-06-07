@@ -28,12 +28,12 @@ def getPrice(symbol):
             logging.info("Timeout Error")
             pass
 
-def createOrder(symbol, side, order):
+def createOrder(symbol, side, order, price=None):
     client = BC.BinanceClient.getClient()
     _order = None
     try:
         _order = client.create_order(symbol=symbol, side=side, type=ORDER_TYPE_LIMIT, timeInForce=TIME_IN_FORCE_GTC, quantity=order.quantity, price=order.price)
-        order.newOpenOrder(_order['orderId'])
+        order.newOpenOrder(_order['orderId'], price=price)
         message = "Transaction " + str(order.transaction_id) + "\n"
         message += getOrderType(order) +  " Order has been opened. Price: " + str(order.price) + "\n"
         bm_logger.sendNotification(message)

@@ -32,6 +32,11 @@ def stop_manager(transaction_id):
 
 def manager(data):
     data = json.loads(data)
+    
+    if 'test' in data:
+        logging.info(data['test'])
+        return True, data['test']
+
     oper_type = data[sad._JSON_OPERATION_TYPE_]
     transaction = None
     transaction_id = None

@@ -118,4 +118,3 @@ def verifyTransaction(transaction, actual_price):
         else:
             BW.createOrder(transaction.symbol, SIDE_SELL, transaction.orders[sad._PROFIT_TYPE_])
             return  _WAITING_PROFIT_
-    

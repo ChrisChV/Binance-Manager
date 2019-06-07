@@ -31,8 +31,10 @@ class Order:
                                             sad._DATE_COL_NAME_: datetime.now(),
                                             sad._STATE_COL_NAME_: self.state})
     
-    def newOpenOrder(self, binance_id):
+    def newOpenOrder(self, binance_id, price = None):
         db = bd.BD.getConn()
+        if price:
+            self.changePrice(price, db=db)
         self.changeState(sad._OPEN_STATE_, db=db)
         self.setBinanceId(binance_id, db=db)
         db.commit()
@@ -64,6 +66,15 @@ class Order:
         db.insert(sad._DATES_TABLE_NAME_, {sad._ORDER_ID_COL_NAME_: self.id,
                                             sad._DATE_COL_NAME_: datetime.now(),
                                             sad._STATE_COL_NAME_: self.state})
+        if flag:
+            db.commit()
+
+    def changePrice(self, price, db = None):
+        self.price = price
+        flag = db is None
+        if flag:
+            db = bd.BD.getConn()
+        db.update(sad._ORDER_TABLE_NAME_, {sad._PRICE_COL_NAME_: self.price}, where=('order_id=%s', [str(self.id)]))
         if flag:
             db.commit()
             
