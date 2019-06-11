@@ -10,7 +10,6 @@ _WAITING_PROFIT_ = 3
 _LOSE_ = 4
 _PROFIT_ = 5
 _WAITING_LOSE_DIFFERENCE = 5
-_FILLED_ = 6
 
 def simple(stop_event, transaction_id = None, transaction = None):
     if transaction_id is None and transaction is None:
@@ -24,6 +23,8 @@ def simple(stop_event, transaction_id = None, transaction = None):
         if stop_event.is_set():
             stop(transaction)
             return True
+        if actual_state == _LOSE_ or actual_state == _PROFIT_:
+            break
         actual_price = BW.getPrice(transaction.symbol)
         if actual_state == sad._ENTRY_TYPE_:
             BW.createOrder(transaction.symbol, SIDE_BUY, transaction.orders[sad._ENTRY_TYPE_])
@@ -107,13 +108,15 @@ def verifyTransaction(transaction, actual_price):
     elif entry_order.state == sad._OPEN_STATE_:
         return _WAITING_ENTRY_
     elif entry_order.state == sad._FILLED_STATE_:
-        if lose_order.state == sad._FILLED_STATE_ or profit_order.state == sad._FILLED_STATE_:
-            return _FILLED_
-        if lose_order.state == sad._OPEN_STATE_:
+        if lose_order.state == sad._FILLED_STATE_:
+            return _LOSE_
+        elif profit_order.state == sad._FILLED_STATE_:
+            return _PROFIT_
+        elif lose_order.state == sad._OPEN_STATE_:
             return _WAITING_LOSE_
-        if profit_order.state == sad._OPEN_STATE_:
+        elif profit_order.state == sad._OPEN_STATE_:
             return _WAITING_PROFIT_
-        if actual_price <= entry_order.price:
+        elif actual_price <= entry_order.price:
             return _WAITING_LOSE_DIFFERENCE
         else:
             BW.createOrder(transaction.symbol, SIDE_SELL, transaction.orders[sad._PROFIT_TYPE_])

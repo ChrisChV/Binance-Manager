@@ -24,9 +24,9 @@ def half(stop_event, transaction_id = None, transaction = None):
     if transaction_id != None:
         transaction = Transaction.Transaction()
         transaction.get(transaction_id)
-    actual_price = None
     ans_price = None
-    actual_state = _ENTRY_INIT_
+    actual_price = BW.getPrice(transaction.symbol)
+    actual_state = verifyTransaction(transaction, actual_price)
     half_lose_price = (transaction.orders[sad._ENTRY_TYPE_].price - transaction.orders[sad._LOSE_TYPE_]) / 2.0
     half_profit_price = (transaction.orders[sad._PROFIT_TYPE_].price - transaction.orders[sad._ENTRY_TYPE_]) / 2.0
     original_profit_price = transaction.orders[sad._LOSE_TYPE_].price
@@ -37,6 +37,8 @@ def half(stop_event, transaction_id = None, transaction = None):
         if stop_event.is_set():
             stop(transaction)
             return True
+        if actual_state == _LOSE_ or actual_state == _PROFIT_:
+            break
         if actual_state == _ENTRY_INIT_:
             BW.createOrder(transaction.symbol, SIDE_BUY, transaction.orders[sad._ENTRY_TYPE_])
             transaction.changeState(sad._OPEN_STATE_)
@@ -153,7 +155,29 @@ def stop(transaction):
     transaction.changeState(sad._CANCELED_STATE_)
 
 def verifyTransaction(transaction, actual_price):
-    pass
+    entry_order = transaction.orders[sad._ENTRY_TYPE_]
+    lose_order = transaction.orders[sad._LOSE_TYPE_]
+    profit_order = transaction.orders[sad._PROFIT_TYPE_]
+    half_lose = (entry_order - lose_order) / 2.0
+    half_profit = (profit_order - entry_order) / 2.0
+    if entry_order.state == sad._INIT_STATE_:
+        return _ENTRY_INIT_
+    elif entry_order.state == sad._OPEN_STATE_:
+        return _WAITING_ENTRY_
+    else:
+        if lose_order.state == sad._FILLED_STATE_:
+            return _LOSE_
+        elif profit_order.state == sad._FILLED_STATE_:
+            return _PROFIT_
+        elif actual_price <= half_profit:
+            return _WAITING_SECOND_HALF_LOSE
+        elif actual_price <= entry_order:
+            return _WAITING_FIRST_HALF_LOSE
+        elif actual_price > half_profit:
+            return _HALF_PROFIT
+        elif actual_price > entry_order:
+            return _WAITING_HALF_PROFIT_
+    
 
 
     
