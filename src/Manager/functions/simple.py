@@ -56,7 +56,7 @@ def simple(stop_event, transaction_id = None, transaction = None):
                 break
             if not BW.verifyDistance(actual_price, transaction.orders[sad._LOSE_TYPE_].price):
                 BW.cancelOrder(transaction.symbol, transaction.orders[sad._LOSE_TYPE_])
-                actual_state = _WAITING_LOSE_DIFFERENCE                
+                actual_state = _WAITING_LOSE_DIFFERENCE
         elif actual_price == _WAITING_PROFIT_:
             if BW.getOrderState(transaction.symbol, transaction.orders[sad._PROFIT_TYPE_]) == ORDER_STATUS_FILLED:
                 transaction.orders[sad._LOSE_TYPE_].changeState(sad._DISABLED_STATE_)

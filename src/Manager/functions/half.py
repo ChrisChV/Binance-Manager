@@ -27,8 +27,8 @@ def half(stop_event, transaction_id = None, transaction = None):
     ans_price = None
     actual_price = BW.getPrice(transaction.symbol)
     actual_state = verifyTransaction(transaction, actual_price)
-    half_lose_price = (transaction.orders[sad._ENTRY_TYPE_].price - transaction.orders[sad._LOSE_TYPE_]) / 2.0
-    half_profit_price = (transaction.orders[sad._PROFIT_TYPE_].price - transaction.orders[sad._ENTRY_TYPE_]) / 2.0
+    half_lose_price = transaction.orders[sad._ENTRY_TYPE_].price - (transaction.orders[sad._ENTRY_TYPE_].price - transaction.orders[sad._LOSE_TYPE_]) / 2.0
+    half_profit_price = transaction.orders[sad._ENTRY_TYPE_].price + (transaction.orders[sad._PROFIT_TYPE_].price - transaction.orders[sad._ENTRY_TYPE_]) / 2.0
     original_profit_price = transaction.orders[sad._LOSE_TYPE_].price
     original_lose_price = transaction.orders[sad._PROFIT_TYPE_].price
     while True:
@@ -177,7 +177,3 @@ def verifyTransaction(transaction, actual_price):
             return _HALF_PROFIT
         elif actual_price > entry_order:
             return _WAITING_HALF_PROFIT_
-    
-
-
-    
