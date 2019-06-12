@@ -105,7 +105,7 @@ venv.bak/
 
 
 #Binance Keys
-src/.keys
+src/Binance/.keys
 
 #Telegram tokens
 src/bm.conf

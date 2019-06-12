@@ -63,6 +63,9 @@ def getTransactionData(data):
     data[sad._JSON_QUANTITY_] = quantity
 
 def printTransactions(res_data):
+    if not res_data:
+        print("There isn't open transactions")
+        return
     for transaction_id, data in res_data.iteritems():
         print("Transaction " + str(transaction_id))
         print("\tSymbol: " + data[sad._JSON_SYMBOL_])
