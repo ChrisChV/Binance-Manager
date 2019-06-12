@@ -14,8 +14,7 @@ _WAITING_LOSE_ = 6
 _WAITING_PROFIT_ = 7
 _WAITING_INFINITE_P_ = 8
 
-
-def infiniteP(stop_event, transaction_id = None, transaction = None):
+def infiniteP(stop_event, disable_event, transaction_id = None, transaction = None):
     if transaction_id is None and transaction is None:
         return False
     if transaction_id != None:
@@ -105,6 +104,15 @@ def stop(transaction, actual_price):
             BW.cancelOrder(transaction.symbol, transaction.orders[sad._PROFIT_TYPE_])
     transaction.changeState(sad._CANCELED_STATE_)
 
+def disable(transaction):
+    message = "Transaction " + str(transaction.id) + " has been disabled\n"
+    bm_logger.sendNotification(message)
+    if transaction.orders[sad._ENTRY_TYPE_].state != sad._FILLED_STATE_:
+        transaction.orders[sad._ENTRY_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._LOSE_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._PROFIT_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.changeState(sad._CANCELED_STATE_)
+
 def verifyTransaction(transaction, actual_price):
     entry_order = transaction.orders[sad._ENTRY_TYPE_]
     lose_order = transaction.orders[sad._LOSE_TYPE_]
@@ -122,5 +130,3 @@ def verifyTransaction(transaction, actual_price):
             return _WAITING_LOSE_DIFERENCE_
         else:
             return _INFINITE_P_
-
-

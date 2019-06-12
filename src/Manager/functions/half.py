@@ -18,7 +18,7 @@ _WAITING_PROFIT_ = 10
 _PROFIT_ = 11
 _WAITING_HALF_PROFIT_ = 12
 
-def half(stop_event, transaction_id = None, transaction = None):
+def half(stop_event, disable_event, transaction_id = None, transaction = None):
     if transaction_id is None and transaction is None:
         return False
     if transaction_id != None:
@@ -152,6 +152,15 @@ def stop(transaction):
             BW.cancelOrder(transaction.symbol, transaction.orders[sad._LOSE_TYPE_])
         if BW.getOrderState(transaction.symbol, transaction.orders[sad._PROFIT_TYPE_]) == ORDER_STATUS_NEW:
             BW.cancelOrder(transaction.symbol, transaction.orders[sad._PROFIT_TYPE_])
+    transaction.changeState(sad._CANCELED_STATE_)
+
+def disable(transaction):
+    message = "Transaction " + str(transaction.id) + " has been disabled\n"
+    bm_logger.sendNotification(message)
+    if transaction.orders[sad._ENTRY_TYPE_].state != sad._FILLED_STATE_:
+        transaction.orders[sad._ENTRY_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._LOSE_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._PROFIT_TYPE_].changeState(sad._DISABLED_STATE_)
     transaction.changeState(sad._CANCELED_STATE_)
 
 def verifyTransaction(transaction, actual_price):

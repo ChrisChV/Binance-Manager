@@ -54,9 +54,10 @@ class Transaction:
     def get(self, transaction_id):
         self.id = transaction_id
         db = bd.BD.getConn()
-        transaction = db.fetchone(sad._TRANSACTION_TABLE_NAME_, fields=['symbol', 'state'], where=('transaction_id=%s', str(self.id)))
+        transaction = db.fetchone(sad._TRANSACTION_TABLE_NAME_, fields=['symbol', 'state', 'function'], where=('transaction_id=%s', str(self.id)))
         self.symbol = transaction['symbol']
         self.state = transaction['state']
+        self.function_id = transaction['function']
         orders = db.fetchall(sad._ORDER_TABLE_NAME_, fields=['order_id', 'price', 'quantity', 'type', 'state', 'binance_id'], where=("transaction_id=%s", str(self.id)))
         self.orders = Order.listToOrders(orders, self.id)
 

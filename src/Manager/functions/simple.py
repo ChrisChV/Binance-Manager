@@ -9,9 +9,9 @@ _WAITING_LOSE_ = 2
 _WAITING_PROFIT_ = 3
 _LOSE_ = 4
 _PROFIT_ = 5
-_WAITING_LOSE_DIFFERENCE = 5
+_WAITING_LOSE_DIFFERENCE = 6
 
-def simple(stop_event, transaction_id = None, transaction = None):
+def simple(stop_event, disable_event, transaction_id = None, transaction = None):
     if transaction_id is None and transaction is None:
         return False
     if transaction_id != None:
@@ -98,6 +98,14 @@ def stop(transaccion):
             BW.cancelOrder(transaccion.symbol, transaccion.orders[sad._PROFIT_TYPE_])
     transaccion.changeState(sad._CANCELED_STATE_)
 
+def disable(transaction):
+    message = "Transaction " + str(transaction.id) + " has been disabled\n"
+    bm_logger.sendNotification(message)
+    if transaction.orders[sad._ENTRY_TYPE_].state != sad._FILLED_STATE_:
+        transaction.orders[sad._ENTRY_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._LOSE_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.orders[sad._PROFIT_TYPE_].changeState(sad._DISABLED_STATE_)
+    transaction.changeState(sad._CANCELED_STATE_)
 
 def verifyTransaction(transaction, actual_price):
     entry_order = transaction.orders[sad._ENTRY_TYPE_]

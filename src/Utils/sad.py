@@ -18,6 +18,8 @@ _CANCELED_STATE_ = 4
 _DISABLED_STATE_ = 5
 
 _FUNCTION_SIMPLE_ = 0
+_FUNCTION_HALF_ = 1
+_FUNCTION_INFINITE_P_ = 2
 
 _BINANCE_SYM_LIST_ = ["BNB", 'BTC', 'ETH', 'XRP', 'USDT', 'PAX', 'TUSD', 'USDC', 'USDS']
 
@@ -55,10 +57,14 @@ _JSON_SYMBOL_ = "symbol"
 _JSON_ENTRY_ = "entry"
 _JSON_LOSE_ = "lose"
 _JSON_PROFIT_ = "profit"
+_JSON_ENTRY_STATE_ = "entry_state"
+_JSON_LOSE_STATE_ = "lose_state"
+_JSON_PROFIT_STATE_ = "profit_state"
 _JSON_QUANTITY_ = "quantity"
 _JSON_TRANSACTION_ID_ = "tran_id"
+_JSON_STATE_ = "state"
 _NEW_OPERATION_TYPE_ = "new"
 _PROGRESS_OPERATION_TYPE_ = "progress"
 _CANCEL_OPERATION_TYPE_ = "cancel"
-
-
+_DISABLE_OPERATION_TYPE_ = "disable"
+_GET_OPEN_OPERATION_TYPE_ = "open"
