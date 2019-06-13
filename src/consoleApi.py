@@ -73,13 +73,13 @@ def printTransactions(res_data):
         print("\tState: " + data[sad._JSON_STATE_])
         print("\tQuantity: " + str(data[sad._JSON_QUANTITY_]))
         print("\tEntry Order:")
-        print("\t\tPrice: " + data[sad._JSON_ENTRY_])
+        print("\t\tPrice: " + str(data[sad._JSON_ENTRY_]))
         print("\t\tState: " + data[sad._JSON_ENTRY_STATE_])
         print("\tLose Order:")
-        print("\t\tPrice: " + data[sad._JSON_LOSE_])
+        print("\t\tPrice: " + str(data[sad._JSON_LOSE_]))
         print("\t\tState: " + data[sad._JSON_LOSE_STATE_])
         print("\tProfit Order:")
-        print("\t\tPrice: " + data[sad._JSON_PROFIT_])
+        print("\t\tPrice: " + str(data[sad._JSON_PROFIT_]))
         print("\t\tState: " + data[sad._JSON_PROFIT_STATE_])
 
 

@@ -2,8 +2,8 @@ import Binance.Binance_Wrapper as BW
 import Utils.sad as sad
 import time
 import bd
+from decimal import *
 from datetime import datetime
-
 
 class Order:
     def __init__(self):
@@ -16,8 +16,8 @@ class Order:
         self.state = None
 
     def create(self, db, price, order_type, transaction_id, state, quantity):
-        self.price = price
-        self.quantity = quantity
+        self.price = Decimal(price)
+        self.quantity = Decimal(quantity)
         self.order_type = order_type
         self.transaction_id = transaction_id
         self.state = state

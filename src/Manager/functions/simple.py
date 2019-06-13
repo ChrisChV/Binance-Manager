@@ -23,6 +23,9 @@ def simple(stop_event, disable_event, transaction_id = None, transaction = None)
         if stop_event.is_set():
             stop(transaction)
             return True
+        if disable_event.is_set():
+            disable(transaction)
+            return True
         if actual_state == _LOSE_ or actual_state == _PROFIT_:
             break
         actual_price = BW.getPrice(transaction.symbol)

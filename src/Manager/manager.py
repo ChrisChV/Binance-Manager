@@ -80,12 +80,12 @@ def manager(data):
             tran_data[sad._JSON_SYMBOL_] = transaction.symbol
             tran_data[sad._JSON_FUNCTION_] = utils.getFunctionName(transaction.function_id)
             tran_data[sad._JSON_STATE_] = utils.getStateName(transaction.state)
-            tran_data[sad._JSON_QUANTITY_] = transaction.orders[sad._ENTRY_TYPE_].quantity
-            tran_data[sad._JSON_ENTRY_] = transaction.orders[sad._ENTRY_TYPE_].price
+            tran_data[sad._JSON_QUANTITY_] = float(transaction.orders[sad._ENTRY_TYPE_].quantity)
+            tran_data[sad._JSON_ENTRY_] = float(transaction.orders[sad._ENTRY_TYPE_].price)
             tran_data[sad._JSON_ENTRY_STATE_] = utils.getStateName(transaction.orders[sad._ENTRY_TYPE_].state)
-            tran_data[sad._JSON_LOSE_] = transaction.orders[sad._LOSE_TYPE_].price
+            tran_data[sad._JSON_LOSE_] = float(transaction.orders[sad._LOSE_TYPE_].price)
             tran_data[sad._JSON_LOSE_STATE_] = utils.getStateName(transaction.orders[sad._LOSE_TYPE_].state)
-            tran_data[sad._JSON_PROFIT_] = transaction.orders[sad._PROFIT_TYPE_].price
+            tran_data[sad._JSON_PROFIT_] = float(transaction.orders[sad._PROFIT_TYPE_].price)
             tran_data[sad._JSON_PROFIT_STATE_] = utils.getStateName(transaction.orders[sad._PROFIT_TYPE_].state)
             res_data[transaction.id] = tran_data
         return True, json.dumps(res_data)

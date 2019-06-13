@@ -3,6 +3,7 @@ import Binance.Binance_Wrapper as BW
 import Utils.sad as sad
 from binance.enums import *
 import Logger.bm_logger as bm_logger
+from decimal import * 
 
 _ENTRY_INIT_ = 0
 _WAITING_ENTRY_ = 1
@@ -27,8 +28,8 @@ def half(stop_event, disable_event, transaction_id = None, transaction = None):
     ans_price = None
     actual_price = BW.getPrice(transaction.symbol)
     actual_state = verifyTransaction(transaction, actual_price)
-    half_lose_price = transaction.orders[sad._ENTRY_TYPE_].price - (transaction.orders[sad._ENTRY_TYPE_].price - transaction.orders[sad._LOSE_TYPE_]) / 2.0
-    half_profit_price = transaction.orders[sad._ENTRY_TYPE_].price + (transaction.orders[sad._PROFIT_TYPE_].price - transaction.orders[sad._ENTRY_TYPE_]) / 2.0
+    half_lose_price = transaction.orders[sad._ENTRY_TYPE_].price - (transaction.orders[sad._ENTRY_TYPE_].price - transaction.orders[sad._LOSE_TYPE_].price) / Decimal(2.0)
+    half_profit_price = transaction.orders[sad._ENTRY_TYPE_].price + (transaction.orders[sad._PROFIT_TYPE_].price - transaction.orders[sad._ENTRY_TYPE_].price) / Decimal(2.0)
     original_profit_price = transaction.orders[sad._LOSE_TYPE_].price
     original_lose_price = transaction.orders[sad._PROFIT_TYPE_].price
     while True:
@@ -36,6 +37,9 @@ def half(stop_event, disable_event, transaction_id = None, transaction = None):
         actual_price = BW.getPrice(transaction.symbol)
         if stop_event.is_set():
             stop(transaction)
+            return True
+        if disable_event.is_set():
+            disable(transaction)
             return True
         if actual_state == _LOSE_ or actual_state == _PROFIT_:
             break
@@ -167,8 +171,8 @@ def verifyTransaction(transaction, actual_price):
     entry_order = transaction.orders[sad._ENTRY_TYPE_]
     lose_order = transaction.orders[sad._LOSE_TYPE_]
     profit_order = transaction.orders[sad._PROFIT_TYPE_]
-    half_lose = (entry_order - lose_order) / 2.0
-    half_profit = (profit_order - entry_order) / 2.0
+    half_lose = (entry_order.price - lose_order.price) / Decimal(2.0)
+    half_profit = (profit_order.price - entry_order.price) / Decimal(2.0)
     if entry_order.state == sad._INIT_STATE_:
         return _ENTRY_INIT_
     elif entry_order.state == sad._OPEN_STATE_:
@@ -186,3 +190,4 @@ def verifyTransaction(transaction, actual_price):
             return _HALF_PROFIT
         elif actual_price > entry_order:
             return _WAITING_HALF_PROFIT_
+    

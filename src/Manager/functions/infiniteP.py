@@ -21,8 +21,8 @@ def infiniteP(stop_event, disable_event, transaction_id = None, transaction = No
         transaction = Transaction.Transaction()
         transaction.get(transaction_id)
     ans_price = None
-    actual_price = None
-    actual_state = _ENTRY_INIT_
+    actual_price = BW.getPrice(transaction.symbol)
+    actual_state = verifyTransaction(transaction, actual_price)
     infiniteP_top_price = None
     infiniteP_price = None
     profit_price = None
@@ -30,7 +30,10 @@ def infiniteP(stop_event, disable_event, transaction_id = None, transaction = No
         ans_price = actual_price
         actual_price = BW.getPrice(transaction.symbol)
         if stop_event.is_set():
-            stop(transaction)
+            stop(transaction, actual_price)
+            return True
+        if disable_event.is_set():
+            disable(transaction)
             return True
         if actual_state == _LOSE_ or actual_state == _PROFIT_:
             break
@@ -70,7 +73,7 @@ def infiniteP(stop_event, disable_event, transaction_id = None, transaction = No
                     infiniteP_price = transaction.orders[sad._ENTRY_TYPE_].price
                     actual_state = _WAITING_INFINITE_P_
                 elif not BW.verifyDistance(actual_price, ans_price):
-                    infiniteP_price = transaction.orders[sad._ENTRY_TYPE_].price + (infiniteP_top_price - transaction.orders[sad._ENTRY_TYPE_].price) / 2.0
+                    infiniteP_price = transaction.orders[sad._ENTRY_TYPE_].price + (infiniteP_top_price - transaction.orders[sad._ENTRY_TYPE_].price) / Decimal(2.0)
                     actual_state = _WAITING_INFINITE_P_
         elif actual_state == _WAITING_INFINITE_P_:
             if actual_price > infiniteP_top_price:
