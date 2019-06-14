@@ -16,8 +16,8 @@ class Order:
         self.state = None
 
     def create(self, db, price, order_type, transaction_id, state, quantity):
-        self.price = Decimal(price)
-        self.quantity = Decimal(quantity)
+        self.price = Decimal(price).quantize(sad.PRICE_DECIMALS)
+        self.quantity = Decimal(quantity).quantize(sad.QUANTITY_DECIMALS)
         self.order_type = order_type
         self.transaction_id = transaction_id
         self.state = state

@@ -9,7 +9,7 @@ class BinanceClient(object):
 
     @classmethod
     def getClient(self):
-        if BinanceClient.__instance is None:
+        if BinanceClient.__instance is None or self.client is None:
             BinanceClient.__instance = object.__new__(self)
             _api_key, _secret_key = self.getKeys()
             self.client = Client(_api_key, _secret_key)

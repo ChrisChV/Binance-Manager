@@ -2,12 +2,15 @@ from requests.exceptions import Timeout
 from binance.client import Client
 from binance.enums import *
 from binance.exceptions import BinanceAPIException
+from decimal import *
 import Logger.bm_logger as bm_logger
 import Utils.sad as sad
 import Binance.Binance_Client as BC
 import logging
 
 DIFFERENCE_THRESHOLD = 0.15
+
+
 
 def symbolExists(symbol):
     client = BC.BinanceClient.getClient()

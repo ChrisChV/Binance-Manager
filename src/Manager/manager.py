@@ -52,14 +52,12 @@ def disable_manager(transaction_id):
 
 def manager(data):
     data = json.loads(data)
-    
-    if 'test' in data:
-        logging.info(data['test'])
-        return True, data['test']
-
     oper_type = data[sad._JSON_OPERATION_TYPE_]
     transaction = None
     transaction_id = None
+    if oper_type == sad._PING_OPERATION_TYPE_:
+        logging.info("Ping")
+        return True, "Ping from Binance Manager Server"
     if oper_type == sad._CANCEL_OPERATION_TYPE_:
         transaction_id = data[sad._JSON_TRANSACTION_ID_]
         if stop_manager(transaction_id):

@@ -1,3 +1,5 @@
+from decimal import *
+
 _DF_ = "/"
 
 _BINANCE_MODULE_DIR_NAME_ = "Binance"
@@ -20,6 +22,9 @@ _DISABLED_STATE_ = 5
 _FUNCTION_SIMPLE_ = 0
 _FUNCTION_HALF_ = 1
 _FUNCTION_INFINITE_P_ = 2
+
+PRICE_DECIMALS = Decimal(10) ** -8
+QUANTITY_DECIMALS = Decimal(10) ** -5
 
 _BINANCE_SYM_LIST_ = ["BNB", 'BTC', 'ETH', 'XRP', 'USDT', 'PAX', 'TUSD', 'USDC', 'USDS']
 
@@ -63,6 +68,7 @@ _JSON_PROFIT_STATE_ = "profit_state"
 _JSON_QUANTITY_ = "quantity"
 _JSON_TRANSACTION_ID_ = "tran_id"
 _JSON_STATE_ = "state"
+_PING_OPERATION_TYPE_ = "ping"
 _NEW_OPERATION_TYPE_ = "new"
 _PROGRESS_OPERATION_TYPE_ = "progress"
 _CANCEL_OPERATION_TYPE_ = "cancel"
