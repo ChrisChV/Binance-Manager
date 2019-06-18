@@ -3,6 +3,7 @@ import Binance.Binance_Wrapper as BW
 import Utils.sad as sad
 from binance.enums import *
 import Logger.bm_logger as bm_logger
+from decimal import *
 
 _ENTRY_INIT_ = 0
 _LOSE_ = 1
@@ -29,6 +30,10 @@ def infiniteP(stop_event, disable_event, transaction_id = None, transaction = No
     while True:
         ans_price = actual_price
         actual_price = BW.getPrice(transaction.symbol)
+        #print("=============================")
+        #print(actual_state)
+        #print(actual_price)
+        #print("=============================")
         if stop_event.is_set():
             stop(transaction, actual_price)
             return True

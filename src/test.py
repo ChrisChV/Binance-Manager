@@ -13,11 +13,14 @@ import Utils.sad as sad
 #db.update(sad._ORDER_TABLE_NAME_, {sad._STATE_COL_NAME_: 3}, where=('order_id=%s', [str(3)]))
 #db.commit()
 
-order = Order.Order()
-order.binance_id = 100
+#order = Order.Order()
+#order.binance_id = 100
 
-status = BW.getOrderState("LINKUSDT", order)
-print(status)
+#status = BW.getOrderState("LINKUSDT", order)
+#print(status)
+
+print(BW.percentDifference(0.02083,0.02085))
+print(BW.verifyDistance(0.02083,0.02085))
 
 
 #symbol1, symbol2 = BW.splitSymbols()

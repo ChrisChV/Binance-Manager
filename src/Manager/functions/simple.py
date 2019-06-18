@@ -84,8 +84,6 @@ def simple(stop_event, disable_event, transaction_id = None, transaction = None)
         message += "Profit: " + str(profit) + "\n"
     bm_logger.sendNotification(message)
 
-
-
 def stop(transaccion):
     message = "Transaction " + str(transaccion.id) + " has been canceled\n"
     bm_logger.sendNotification(message)
