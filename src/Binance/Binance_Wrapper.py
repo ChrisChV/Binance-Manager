@@ -10,8 +10,6 @@ import logging
 
 DIFFERENCE_THRESHOLD = 0.15
 
-
-
 def symbolExists(symbol):
     client = BC.BinanceClient.getClient()
     if client.get_symbol_info(symbol):
